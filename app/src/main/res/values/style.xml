@@ -1,0 +1,16 @@
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Các thuộc tính của AppTheme -->
+    </style>
+
+    <style name="CustomSpinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:spinnerStyle">@style/SpinnerStyle</item>
+    </style>
+
+    <style name="SpinnerStyle" parent="Widget.AppCompat.Spinner">
+        <!-- Các thuộc tính của spinnerStyle -->
+    </style>
+    <style name="CustomSignIn">
+        <item name="android:text">Đăng nhập bằng Google</item>
+    </style>
+</resources>

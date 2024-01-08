@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainBackground"
+    android:orientation="vertical"
+    tools:context=".RoomMeetingActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp">
+
+        <TextView
+            android:id="@+id/meeting_topic_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="start"
+            android:text="Chủ đề: "
+            android:textColor="@color/white"
+            android:textSize="14sp"></TextView>
+
+        <TextView
+            android:id="@+id/meeting_id_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/meeting_topic_textview"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="start"
+            android:text="ID: "
+            android:textColor="@color/white"
+            android:textSize="14sp"></TextView>
+
+        <TextView
+            android:id="@+id/meeting_name_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Nguời tạo: "
+            android:textColor="@color/white"
+            android:textSize="14sp"></TextView>
+
+        <TextView
+            android:id="@+id/share_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/meeting_id_textview"
+            android:layout_alignBottom="@+id/meeting_id_textview"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            android:text="Chia sẻ ID"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            app:backgroundTint="@null"></TextView>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/fragment_container"
+        android:orientation="horizontal"
+        >
+
+    </LinearLayout>
+
+</LinearLayout>

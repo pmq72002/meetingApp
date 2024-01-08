@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#252424"
+    android:orientation="vertical"
+    tools:context=".joinMeet_Activity">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/border_tittle"
+        android:gravity="center"
+        android:text="Tham gia cuộc họp"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingStart="20dp"
+        android:text="Id phòng họp"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/edt_Id"
+        android:layout_width="381dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/plaintext_custom"
+        android:ems="10"
+        android:hint="Nhập Id"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:text="Mật khẩu"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/edt_PassJoin"
+        android:layout_width="381dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/plaintext_custom"
+        android:ems="10"
+        android:hint="Nhập mật khẩu"
+        android:inputType="textPassword"
+        android:paddingLeft="20dp"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <CheckBox
+        android:id="@+id/cb_mic"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tắt mic khi vào"
+        android:textColor="#FFFFFF" />
+
+    <CheckBox
+        android:id="@+id/cb_cam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tắt camera khi vào"
+        android:textColor="#FFFFFF" />
+
+    <Button
+        android:id="@+id/btn_Join"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_button"
+        android:text="Tham gia"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        app:backgroundTint="@null" />
+
+</LinearLayout>

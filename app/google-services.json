@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "557033531406",
+    "firebase_url": "https://real-meeting-app-default-rtdb.firebaseio.com",
+    "project_id": "real-meeting-app",
+    "storage_bucket": "real-meeting-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:557033531406:android:c60e69405796729283b45f",
+        "android_client_info": {
+          "package_name": "com.example.meetingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "557033531406-ug7pq8ri09kb1al0sqdup37k66a25db1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meetingapp",
+            "certificate_hash": "91b523ae10717d6c57593cb513e68847e811f518"
+          }
+        },
+        {
+          "client_id": "557033531406-ndpttgunj3qadd9nno5cls55eck5nn72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAFoHDeIphzVbu8DoL0YUXuh7yYALeiPJ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "557033531406-ndpttgunj3qadd9nno5cls55eck5nn72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
