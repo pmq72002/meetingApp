@@ -34,11 +34,12 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 public class myMeet_Activity extends AppCompatActivity {
-    SQLiteDatabase database=null;
-    RecyclerView lv_MyMeet;
+
+    RecyclerView rv_MyMeet;
     ArrayList<Meetings> mylist;
     DatabaseReference meetRef;
     MyAdapter adapter;
+
 
 
 
@@ -48,11 +49,12 @@ public class myMeet_Activity extends AppCompatActivity {
         setContentView(R.layout.activity_my_meet);
 
 
-        lv_MyMeet = findViewById(R.id.lv_MyMeet);
+        rv_MyMeet = findViewById(R.id.rv_MyMeet);
+       meetRef = FirebaseDatabase.getInstance().getReference("Meetings");
        mylist = new ArrayList<>();
-       lv_MyMeet.setLayoutManager(new LinearLayoutManager(this));
+       rv_MyMeet.setLayoutManager(new LinearLayoutManager(this));
        adapter = new MyAdapter(this, mylist);
-       lv_MyMeet.setAdapter(adapter);
+       rv_MyMeet.setAdapter(adapter);
 
        meetRef.addValueEventListener(new ValueEventListener() {
            @Override

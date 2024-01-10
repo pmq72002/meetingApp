@@ -20,7 +20,7 @@
         android:textSize="24sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lv_MyMeet"
+        android:id="@+id/rv_MyMeet"
         android:layout_width="match_parent"
         android:paddingTop="10dp"
 

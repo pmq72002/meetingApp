@@ -34,7 +34,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/plaintext_custom"
         android:ems="10"
         android:hint="Nhập chủ đề"
@@ -59,7 +59,7 @@
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/plaintext_custom"
         android:ems="10"
         android:hint="Nhập mật khẩu"
@@ -71,9 +71,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/border_tittle"
         android:orientation="horizontal">
 
@@ -110,9 +110,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="20dp"
         android:background="@drawable/border_tittle"
         android:orientation="horizontal">
 

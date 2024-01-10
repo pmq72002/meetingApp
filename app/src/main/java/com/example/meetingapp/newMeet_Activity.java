@@ -61,6 +61,7 @@ public class newMeet_Activity extends AppCompatActivity {
         btn_create = findViewById(R.id.btn_create);
 
         meetRef =FirebaseDatabase.getInstance().getReference().child("Meetings");
+
         progressDialog = new ProgressDialog(this);
 
 
@@ -143,6 +144,7 @@ public class newMeet_Activity extends AppCompatActivity {
     final String getMeetPass = edt_PassNew.getText().toString();
     final String getMeetDate = btn_date.getText().toString();
     final String getMeetTime = btn_time.getText().toString();
+
     final String getMeetName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
 
         if(getMeetTopic.equals("")){
@@ -159,7 +161,6 @@ public class newMeet_Activity extends AppCompatActivity {
 
             String id = String.valueOf(randomNum);
 
-            String meetingId = meetRef.push().getKey();
 
             HashMap<String,Object> profileMap = new HashMap<>();
             profileMap.put("id",id);
@@ -169,7 +170,8 @@ public class newMeet_Activity extends AppCompatActivity {
             profileMap.put("time",getMeetTime);
             profileMap.put("name",getMeetName);
 
-            meetRef.child(meetingId).setValue(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+
+            meetRef.child(id).setValue(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){

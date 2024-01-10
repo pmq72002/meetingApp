@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     ImageButton btn_stt;
     ImageView img_profile;
     TextView txt_profile;
-    Button btn_newMeet, btn_myMeet, btn_joinMeet, btn_listMeet, btn_summaryMeet, btn_document;
+    Button btn_newMeet, btn_myMeet, btn_contentsMeet, btn_document;
     private DatabaseReference userRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +44,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btn_stt = findViewById(R.id.btn_stt);
         btn_newMeet = findViewById(R.id.btn_newMeet);
         btn_myMeet = findViewById(R.id.btn_myMeet);
-        btn_joinMeet = findViewById(R.id.btn_joinMeet);
-        btn_listMeet = findViewById(R.id.btn_listMeet);
-        btn_summaryMeet = findViewById(R.id.btn_summaryMeet);
+        btn_contentsMeet = findViewById(R.id.btn_contentsMeet);
         btn_document = findViewById(R.id.btn_document);
 
         txt_profile = findViewById(R.id.txt_profile);
@@ -62,13 +60,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 startActivity(intentNewMeet);
             }
         });
-        btn_joinMeet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentJoinMeet = new Intent(MainActivity.this, joinMeet_Activity.class);
-                startActivity(intentJoinMeet);
-            }
-        });
         btn_myMeet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,19 +67,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 startActivity(intentMyMeet);
             }
         });
-        btn_listMeet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intentListMeet = new Intent(MainActivity.this, listMeet_Activity.class);
-                startActivity(intentListMeet);
-            }
-        });
+
     retrieveUserInfoMain();
 
-        btn_summaryMeet.setOnClickListener(new View.OnClickListener() {
+        btn_contentsMeet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent contentIntent = new Intent(MainActivity.this, ContentsActivity.class);
+                startActivity(contentIntent);
             }
         });
     }
