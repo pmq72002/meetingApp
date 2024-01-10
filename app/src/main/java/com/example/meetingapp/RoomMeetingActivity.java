@@ -140,15 +140,17 @@ public class RoomMeetingActivity extends AppCompatActivity {
 
                     final String getMeetContent ="";
                     final String getUserId = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
+                    String id = contentRef.push().getKey();
                     String meetContent = getMeetContent.concat(result.get(0));
                     Contents contents = new Contents(meetingID,getUserId,meetContent);
 
-                    HashMap<String, String> contentMap = new HashMap<>();
+//                    HashMap<String, String> contentMap = new HashMap<>();
+//
+//                    contentMap.put("meetingId",meetingID);
+//                    contentMap.put("id", getUserId);
+//                    contentMap.put("contents", meetContent);
 
-                    contentMap.put("id", getUserId);
-                    contentMap.put("contents", meetContent);
-
-                    contentRef.child(meetingID).push().setValue(contentMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    contentRef.child(meetingID).child(id).setValue(contents).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){

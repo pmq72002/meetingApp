@@ -26,8 +26,8 @@ import com.squareup.picasso.Picasso;
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     DBHelper dbHelper;
 
-    Toolbar toolbar;
-    ImageButton btn_stt;
+
+
     ImageView img_profile;
     TextView txt_profile;
     Button btn_newMeet, btn_myMeet, btn_contentsMeet, btn_document;
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
         dbHelper = new DBHelper(this);
-        btn_stt = findViewById(R.id.btn_stt);
         btn_newMeet = findViewById(R.id.btn_newMeet);
         btn_myMeet = findViewById(R.id.btn_myMeet);
         btn_contentsMeet = findViewById(R.id.btn_contentsMeet);

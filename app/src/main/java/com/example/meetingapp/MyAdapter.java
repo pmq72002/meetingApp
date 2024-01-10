@@ -49,8 +49,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.topic.setText(meetings.getTopic());
         holder.date.setText(meetings.getDate());
         holder.time.setText(meetings.getTime());
-        Button createMeetBtn = holder.itemView.findViewById(R.id.join_meeting_btn);
-        createMeetBtn.setOnClickListener(new View.OnClickListener() {
+        Button joinMeetBtn = holder.itemView.findViewById(R.id.join_meeting_btn);
+        joinMeetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 meetRef = FirebaseDatabase.getInstance().getReference().child("Meetings");

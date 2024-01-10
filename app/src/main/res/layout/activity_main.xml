@@ -46,24 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <SearchView
-            android:id="@+id/searchView"
-            android:layout_width="360dp"
-            android:layout_height="wrap_content"
-            android:background="#2F2F2F" />
-
-        <ImageButton
-            android:id="@+id/btn_stt"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@drawable/afteclick"
-            android:contentDescription="speech to text"
-            app:srcCompat="@android:drawable/ic_btn_speak_now" />
-
-    </LinearLayout>
+        android:orientation="horizontal"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
