@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".FilesListActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/border_tittle"
+        android:gravity="center"
+        android:text="Tài liệu cuộc họp"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainBackground"
+        >
+        <EditText
+            android:id="@+id/edt_search_list_file"
+            android:layout_width="370dp"
+            android:layout_height="37dp"
+            android:background="@color/mainBackground"
+            android:textColor="@color/white"
+            android:hint="Tìm kiếm tài liệu cuộc họp"
+            android:textColorHint="#99FFFFFF"
+            android:drawableLeft="@drawable/ic_search"
+            android:textSize="14dp"
+            ></EditText>
+
+        <ImageView
+            android:id="@+id/mic_stt_list_file"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_mic"></ImageView>
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_MyFilesList"
+        android:layout_width="match_parent"
+        android:paddingTop="10dp"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
