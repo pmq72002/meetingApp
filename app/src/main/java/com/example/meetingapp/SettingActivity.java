@@ -13,13 +13,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,181 +38,100 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 
 public class SettingActivity extends AppCompatActivity {
+
+    private FirebaseUser user;
+    private DatabaseReference reference;
+
     private Button saveBtn;
-    private EditText userNameET;
-    private EditText userClassET;
+    private TextView userNameET;
+    private EditText userMnvET, userPositionET;
     private ImageView profileImg;
-    private static int GallaryPick = 1;
-    private Uri ImageUri;
-    private StorageReference userProfileImgRef;
-    private String downloadUrl;
+
+
+    private String  userID;
     private DatabaseReference userRef;
-    private ProgressDialog progressDialog;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        userProfileImgRef = FirebaseStorage.getInstance().getReference().child("Profile Image");
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
+
+       // userRef = FirebaseDatabase.getInstance().getReference("Users");
 
         saveBtn = findViewById(R.id.save_setting);
-        userNameET = findViewById(R.id.username_setting);
-        userClassET = findViewById(R.id.class_setting);
+        userNameET = findViewById(R.id.user_name_setting);
+        userMnvET = findViewById(R.id.mnv_setting);
+        userPositionET = findViewById(R.id.position_setting);
         profileImg = findViewById(R.id.setting_profile_image);
-
-        progressDialog = new ProgressDialog(this);
-
-        profileImg.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent gallaryIntent = new Intent();
-                gallaryIntent.setAction(Intent.ACTION_GET_CONTENT);
-                gallaryIntent.setType("image/*");
-                startActivityForResult(gallaryIntent, GallaryPick);
-            }
-        });
 
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveUserData();
+                userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
+
+                saveInfoOnly();
+
+            }
+        });
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users userProfile = snapshot.getValue(Users.class);
+                        if(userProfile!=null){
+                            String name = userProfile.name;
+                            String mnv = userProfile.mnv;
+                            String position = userProfile.position;
+                            String profile = userProfile.profile;
+
+                            userNameET.setText(name);
+                            userMnvET.setText(mnv);
+                            userPositionET.setText(position);
+                            Picasso.get().load(profile).placeholder(R.drawable.profile).into(profileImg);
+
+
+                        }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
 
-        retrieveUserInfo();
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==GallaryPick && resultCode==RESULT_OK && data!=null){
-            ImageUri = data.getData();
-            profileImg.setImageURI(ImageUri);
-        }
-    }
-
-    private void saveUserData(){
-        final String getUserName = userNameET.getText().toString();
-        final String getUserClass = userClassET.getText().toString();
-        if(ImageUri == null){
-            userRef.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    if(snapshot.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).hasChild("image")){
-                        saveInfoOnly();
-                    }else {
-                        Toast.makeText(SettingActivity.this, "Hãy chọn hình ảnh trước", Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        } else if (getUserName.equals("")) {
-            Toast.makeText(this, "Họ tên không được để trống", Toast.LENGTH_SHORT).show();
-        }else if (getUserClass.equals("")){
-            Toast.makeText(this, "Lớp không được để trống", Toast.LENGTH_SHORT).show();
-        }else{
-            progressDialog.setTitle("Đang cài đặt tài khoản");
-            progressDialog.setMessage("Vui lòng đợi trong giây lát...");
-            progressDialog.show();
-            final StorageReference filePath = userProfileImgRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-            final UploadTask uploadTask = filePath.putFile(ImageUri);
-            uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
-                @Override
-                public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
-
-                    if(!task.isSuccessful()){
-                        throw task.getException();
-                    }
-                    downloadUrl=filePath.getDownloadUrl().toString();
-                    return filePath.getDownloadUrl();
-                }
-            }).addOnCompleteListener(new OnCompleteListener<Uri>() {
-                @Override
-                public void onComplete(@NonNull Task<Uri> task) {
-                    if(task.isSuccessful()){
-                        downloadUrl=task.getResult().toString();
-                        HashMap<String,Object> profileMap = new HashMap<>();
-                        profileMap.put("uid",FirebaseAuth.getInstance().getCurrentUser().getUid());
-                        profileMap.put("name",getUserName);
-                        profileMap.put("class",getUserClass);
-                        profileMap.put("image",downloadUrl);
-
-                        userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if(task.isSuccessful()){
-                                    Intent intent = new Intent(SettingActivity.this,MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                    progressDialog.dismiss();
-                                    Toast.makeText(SettingActivity.this, "Thông tin tài khoản đã được cập nhật", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
-                    }
-                }
-            });
-        }
     }
     private void saveInfoOnly(){
-        final String getUserName = userNameET.getText().toString();
-        final String getUserClass = userClassET.getText().toString();
+        final String getUserMnv = userMnvET.getText().toString();
+        final String getUserPosition = userPositionET.getText().toString();
 
 
 
-        if (getUserName.equals("")) {
-            Toast.makeText(this, "Họ tên không được để trống", Toast.LENGTH_SHORT).show();
-        }else if (getUserClass.equals("")){
-            Toast.makeText(this, "Lớp không được để trống", Toast.LENGTH_SHORT).show();
+        if (getUserMnv.equals("")) {
+            Toast.makeText(this, "Mã nhân viên không được để trống", Toast.LENGTH_SHORT).show();
+        }else if (getUserPosition.equals("")){
+            Toast.makeText(this, "Vị trí không được để trống", Toast.LENGTH_SHORT).show();
         }else {
-            progressDialog.setTitle("Đang cài đặt tài khoản");
-            progressDialog.setMessage("Vui lòng đợi trong giây lát...");
-            progressDialog.show();
 
-            HashMap<String,Object> profileMap = new HashMap<>();
+            HashMap<String,String> profileMap = new HashMap<>();
             profileMap.put("uid",FirebaseAuth.getInstance().getCurrentUser().getUid());
-            profileMap.put("name",getUserName);
-            profileMap.put("class",getUserClass);
-
-            userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            profileMap.put("mnv",getUserMnv);
+            profileMap.put("position",getUserPosition);
+            profileMap.put("profile",FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
+            userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
-                        Intent intent = new Intent(SettingActivity.this,MainActivity.class);
-                        startActivity(intent);
-                        finish();
-                        progressDialog.dismiss();
                         Toast.makeText(SettingActivity.this, "Thông tin tài khoản đã được cập nhật", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
         }
-    }
-    private void retrieveUserInfo() {
-        userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String imageDb = snapshot.child("image").getValue(String.class);
-                    String nameDb = snapshot.child("name").getValue(String.class);
-                    String classDb = snapshot.child("class").getValue(String.class);
-
-                    // Set the retrieved values to the corresponding views
-                    userNameET.setText(nameDb);
-                    userClassET.setText(classDb);
-                    Picasso.get().load(imageDb).placeholder(R.drawable.profile).into(profileImg);
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Handle onCancelled event
-            }
-        });
     }
 }

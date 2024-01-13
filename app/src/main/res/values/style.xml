@@ -13,4 +13,9 @@
     <style name="CustomSignIn">
         <item name="android:text">Đăng nhập bằng Google</item>
     </style>
+    <style name="AppTheme.PopMe">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 </resources>

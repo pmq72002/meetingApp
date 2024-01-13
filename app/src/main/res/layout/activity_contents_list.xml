@@ -16,6 +16,31 @@
         android:textAlignment="center"
         android:textColor="#FFFFFF"
         android:textSize="24sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mainBackground"
+        >
+        <EditText
+            android:id="@+id/edt_search_list"
+            android:layout_width="370dp"
+            android:layout_height="37dp"
+            android:background="@color/mainBackground"
+            android:textColor="@color/white"
+            android:hint="Tìm kiếm nội dung cuộc họp"
+            android:textColorHint="#99FFFFFF"
+            android:drawableLeft="@drawable/ic_search"
+            android:textSize="14dp"
+            ></EditText>
+
+        <ImageView
+            android:id="@+id/mic_stt_list"
+            android:layout_width="37dp"
+            android:layout_height="37dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_mic"></ImageView>
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_contentList"

@@ -50,5 +50,6 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.github.ZEGOCLOUD:zego_uikit_prebuilt_video_conference_android:+")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
 
 }

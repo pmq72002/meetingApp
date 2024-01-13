@@ -2,12 +2,14 @@ package com.example.meetingapp;
 
 
 public class Users {
-    String userId,name,profile;
+    String userId,name,profile,mnv,position;
 
-    public Users(String userId, String name, String profile) {
+    public Users(String userId, String name, String profile,String mnv,String position) {
         this.userId = userId;
         this.name = name;
         this.profile = profile;
+        this.mnv = mnv;
+        this.position = position;
     }
 
     public Users() {
@@ -35,6 +37,22 @@ public class Users {
 
     public void setProfile(String profile) {
         this.profile = profile;
+    }
+
+    public String getMnv() {
+        return mnv;
+    }
+
+    public void setMnv(String mnv) {
+        this.mnv = mnv;
+    }
+
+    public String getposition() {
+        return position;
+    }
+
+    public void setposition(String position) {
+        this.position = position;
     }
 }
 

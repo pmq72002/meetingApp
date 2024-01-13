@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,9 +25,10 @@ import com.squareup.picasso.Picasso;
 
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-    DBHelper dbHelper;
 
-
+    private DatabaseReference reference;
+    private FirebaseUser user;
+    private String  userID;
 
     ImageView img_profile;
     TextView txt_profile;
@@ -38,9 +40,11 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         setContentView(R.layout.activity_main);
 
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        userID = user.getUid();
 
 
-        dbHelper = new DBHelper(this);
         btn_newMeet = findViewById(R.id.btn_newMeet);
         btn_myMeet = findViewById(R.id.btn_myMeet);
         btn_contentsMeet = findViewById(R.id.btn_contentsMeet);
@@ -113,23 +117,25 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     }
 
     private void retrieveUserInfoMain() {
-        FirebaseDatabase.getInstance().getReference().child("Users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    String imageDb = snapshot.child("image").getValue(String.class);
-                    String nameDb = snapshot.child("name").getValue(String.class);
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users userProfile = snapshot.getValue(Users.class);
+                if (userProfile != null) {
+                    String name = userProfile.name;
+                    String profile = userProfile.profile;
 
-                    // Set the retrieved values to the corresponding views
-                    txt_profile.setText(nameDb);
-                    Picasso.get().load(imageDb).placeholder(R.drawable.profile).into(img_profile);
+                    txt_profile.setText(name);
+
+                    Picasso.get().load(profile).placeholder(R.drawable.profile).into(img_profile);
+
+
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
-                // Handle onCancelled event
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

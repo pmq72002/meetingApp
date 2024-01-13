@@ -7,43 +7,55 @@
     android:background="@color/mainBackground"
     tools:context=".SettingActivity">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/setting_profile_image"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/profile"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:scaleType="centerCrop"
+        app:shapeAppearance="@style/roundedImageView"
         android:layout_marginTop="50dp"
 
         />
+    <TextView
+        android:id="@+id/user_name_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/setting_profile_image"
+        android:textColor="@color/white"
+        android:text="Minh Quân"
+        android:textSize="30dp"
+        android:layout_centerInParent="true"
+        ></TextView>
     <EditText
-        android:id="@+id/username_setting"
+        android:id="@+id/mnv_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/setting_profile_image"
+        android:layout_below="@+id/user_name_setting"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/username"
         android:drawableTint="@color/white"
         android:ems="10"
-        android:hint="Họ và tên"
+        android:hint="Mã nhân viên"
         android:textColor="@color/white"
+        android:textColorHint="#9AFFFFFF"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:backgroundTint="@color/white"
         android:inputType="text" />
 
     <EditText
-        android:id="@+id/class_setting"
+        android:id="@+id/position_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/username_setting"
+        android:layout_below="@+id/mnv_setting"
         android:layout_marginTop="20dp"
-        android:drawableLeft="@drawable/classs"
         android:drawableTint="@color/white"
         android:ems="10"
+        android:textColorHint="#9AFFFFFF"
         android:backgroundTint="@color/white"
-        android:hint="Lớp"
+        android:hint="Vị trí"
         android:textColor="@color/white"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -53,7 +65,7 @@
         android:id="@+id/save_setting"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/class_setting"
+        android:layout_below="@+id/position_setting"
         android:background="@drawable/custom_button"
         app:backgroundTint="@null"
         android:layout_marginTop="30dp"

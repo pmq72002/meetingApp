@@ -10,25 +10,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="41dp"
+        android:layout_height="50dp"
         android:background="#2F2F2F"
         android:orientation="horizontal">
 
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/img_profile"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:padding="4dp"
             android:background="#2F2F2F"
+            android:scaleType="centerCrop"
+            app:shapeAppearance="@style/roundedImageView"
             app:srcCompat="@drawable/profile" />
 
         <TextView
+            android:layout_marginLeft="3dp"
             android:id="@+id/txt_profile"
-            android:layout_width="303dp"
+            android:layout_width="279dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Minh Quân"
             android:gravity="center_vertical"
+            android:text="Minh Quân"
             android:textColor="#FFFFFF"
             android:textSize="16sp" />
 
@@ -36,9 +39,9 @@
             android:id="@+id/btn_menu"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:onClick="onShowMenu"
             android:layout_weight="1"
             android:background="#2F2F2F"
+            android:onClick="onShowMenu"
             app:srcCompat="@drawable/menu" />
     </LinearLayout>
 

@@ -30,7 +30,7 @@ import java.util.Locale;
 
 public class RoomMeetingActivity extends AppCompatActivity {
     TextView meetingIDText, meetingNameTextview;
-    TextView share_btn;
+    TextView share_btn, file_btn;
 
     TextView meetingTopicText;
     ImageView record_btn;
@@ -46,6 +46,7 @@ public class RoomMeetingActivity extends AppCompatActivity {
 
         meetingIDText = findViewById(R.id.meeting_id_textview);
         share_btn = findViewById(R.id.share_btn);
+        file_btn = findViewById(R.id.file_btn);
         meetingTopicText = findViewById(R.id.meeting_topic_textview);
         meetingNameTextview = findViewById(R.id.meeting_name_textview);
         record_btn = findViewById(R.id.mic_record);
@@ -61,6 +62,14 @@ public class RoomMeetingActivity extends AppCompatActivity {
         meetingTopicText.setText("Chủ đề: " + meetingTopic);
         meetingNameTextview.setText("Nguời tạo: " + name);
         addFragment();
+
+        file_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RoomMeetingActivity.this,FileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         share_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,9 +132,8 @@ public class RoomMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onEndOfSpeech() {
-                // changing the color of our mic icon to
-                // gray to indicate it is not listening
-                record_btn.setImageResource(R.drawable.mic_start);; // #FF6D6A6A
+
+                record_btn.setImageResource(R.drawable.mic_start);
             }
 
             @Override

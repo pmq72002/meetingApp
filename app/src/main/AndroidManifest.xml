@@ -15,6 +15,11 @@
         android:theme="@style/Theme.MeetingApp"
         tools:targetApi="31">
         <activity
+            android:name=".FileActivity"
+            android:exported="false"
+            android:theme="@style/AppTheme.PopMe"
+            />
+        <activity
             android:name=".ContentsListActivity"
             android:exported="false" />
         <activity
@@ -25,9 +30,6 @@
             android:exported="false" />
         <activity
             android:name=".SettingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

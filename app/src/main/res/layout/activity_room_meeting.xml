@@ -69,6 +69,21 @@
             android:textColor="#000000"
             android:textSize="14dp"
             app:backgroundTint="@null"></TextView>
+        <TextView
+            android:id="@+id/file_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/share_btn"
+            android:layout_alignBottom="@+id/meeting_id_textview"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
+            android:text="Tài liệu"
+            android:paddingLeft="5dp"
+            android:layout_marginLeft="90dp"
+            android:paddingRight="5dp"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            app:backgroundTint="@null"></TextView>
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
