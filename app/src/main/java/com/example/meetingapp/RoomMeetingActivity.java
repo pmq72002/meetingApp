@@ -11,7 +11,6 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import com.zegocloud.uikit.prebuilt.videoconference.ZegoUIKitPrebuiltVideoConfer
 import com.zegocloud.uikit.prebuilt.videoconference.ZegoUIKitPrebuiltVideoConferenceFragment;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Locale;
 
 public class RoomMeetingActivity extends AppCompatActivity {
@@ -66,7 +64,7 @@ public class RoomMeetingActivity extends AppCompatActivity {
         file_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RoomMeetingActivity.this,FileActivity.class);
+                Intent intent = new Intent(RoomMeetingActivity.this, FileRoomActivity.class);
                 intent.putExtra("Meeting_ID",meetingID);
                 startActivity(intent);
             }

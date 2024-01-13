@@ -8,11 +8,9 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     ImageView img_profile;
     TextView txt_profile;
-    Button btn_newMeet, btn_myMeet, btn_contentsMeet, btn_document;
+    Button btn_newMeet, btn_myMeet, btn_contentsMeet, btn_file;
     private DatabaseReference userRef;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         btn_newMeet = findViewById(R.id.btn_newMeet);
         btn_myMeet = findViewById(R.id.btn_myMeet);
         btn_contentsMeet = findViewById(R.id.btn_contentsMeet);
-        btn_document = findViewById(R.id.btn_document);
+        btn_file = findViewById(R.id.btn_file);
 
         txt_profile = findViewById(R.id.txt_profile);
         img_profile = findViewById(R.id.img_profile);
@@ -80,7 +78,17 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
                 startActivity(contentIntent);
             }
         });
+
+        btn_file.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent fileIntent = new Intent(MainActivity.this, MyFilesActivity.class);
+                startActivity(fileIntent);
+            }
+        });
     }
+
+
 
 
 

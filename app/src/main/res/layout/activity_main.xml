@@ -73,7 +73,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/btn_document"
+            android:id="@+id/btn_file"
             android:layout_width="110dp"
             android:layout_height="110dp"
             android:layout_marginTop="132dp"

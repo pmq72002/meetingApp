@@ -129,6 +129,10 @@ public class myMeet_Activity extends AppCompatActivity {
                         adapter = new MyAdapter(getApplicationContext(),mylist);
                     rv_MyMeet.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
+                }else{
+                    mylist.clear();
+                    rv_MyMeet.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
             }
 

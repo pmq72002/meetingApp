@@ -30,12 +30,13 @@ import java.util.ArrayList;
 public class ContentsListActivity extends AppCompatActivity {
 
     protected static final int RESULT_SPEECH = 2;
+    EditText edt_search_list;
+    ImageView mic_stt_list;
     RecyclerView rv_myContentList;
     ArrayList<Contents> mylist;
     DatabaseReference contRef;
     MyContentListAdapter contentListAdapter;
-    EditText edt_search_list;
-    ImageView mic_stt_list;
+
 
 
     @Override
@@ -131,6 +132,10 @@ public class ContentsListActivity extends AppCompatActivity {
                         mylist.add(contents);
                     }
                     contentListAdapter = new MyContentListAdapter(getApplicationContext(),mylist);
+                    rv_myContentList.setAdapter(contentListAdapter);
+                    contentListAdapter.notifyDataSetChanged();
+                }else{
+                    mylist.clear();
                     rv_myContentList.setAdapter(contentListAdapter);
                     contentListAdapter.notifyDataSetChanged();
                 }

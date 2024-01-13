@@ -1,8 +1,6 @@
 package com.example.meetingapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.documentfile.provider.DocumentFile;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,17 +18,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroupOverlay;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListPopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.common.collect.Lists;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,18 +36,13 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import org.checkerframework.checker.units.qual.A;
-import org.w3c.dom.DocumentFragment;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
-import java.util.SimpleTimeZone;
 
-public class FileActivity extends Activity {
+public class FileRoomActivity extends Activity {
     private static int PICCK_IMAGE_REQUEST =1;
     private static  int CHOOSE_FILE_REQUEST = 2;
     ImageView upload;
@@ -70,7 +59,7 @@ public class FileActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_file);
+        setContentView(R.layout.activity_file_room);
 
 
         rv_list_file = findViewById(R.id.rv_list_file);
@@ -145,16 +134,7 @@ public class FileActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if(requestCode==CHOOSE_FILE_REQUEST && resultCode==RESULT_OK&&data!=null&&data.getData()!=null){
-//            upload.setEnabled(true);
-//            edt_file.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/")+1));
-//            upload.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    uploadFileFirebase(data.getData());
-//                }
-//            });
-//        }
+
         String path = "";
         if (resultCode == RESULT_OK) {
             if (requestCode == CHOOSE_FILE_REQUEST) {
@@ -205,7 +185,7 @@ public class FileActivity extends Activity {
                 String time = timeFormat.format(dateAndTime);
                 Files files = new Files(getUserId,uri.toString(),date,time);
                 databaseReference.child("Files").child(meetingID).child(id).setValue(files);
-                Toast.makeText(FileActivity.this, "Tải tài liệu lên thành công", Toast.LENGTH_SHORT).show();
+                Toast.makeText(FileRoomActivity.this, "Tải tài liệu lên thành công", Toast.LENGTH_SHORT).show();
                 edt_file.setText("");
                 progressDialog.dismiss();
             }

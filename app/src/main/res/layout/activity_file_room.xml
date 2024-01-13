@@ -9,7 +9,7 @@
     android:layout_marginRight="20dp"
     android:layout_height="600dp"
     android:orientation="vertical"
-    tools:context=".FileActivity">
+    tools:context=".FileRoomActivity">
 
     <TextView
         android:id="@+id/textView"
