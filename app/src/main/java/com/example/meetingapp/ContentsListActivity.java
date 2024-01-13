@@ -115,30 +115,7 @@ public class ContentsListActivity extends AppCompatActivity {
             }
         });
     }
-    public void searchVoice(String s){
-        String meetingID = getIntent().getStringExtra("MeetingID");
-        Query query1 = contRef.child(meetingID).orderByChild("id").equalTo(s);
-        query1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChildren()){
-                    mylist.clear();
-                    for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                        final Contents contents = dataSnapshot.getValue(Contents.class);
-                        mylist.add(contents);
-                    }
-                    contentListAdapter = new MyContentListAdapter(getApplicationContext(),mylist);
-                    rv_myContentList.setAdapter(contentListAdapter);
-                    contentListAdapter.notifyDataSetChanged();
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
     private void search(String s) {
         String meetingID = getIntent().getStringExtra("meetingID");
         Query query = contRef.child(meetingID).orderByChild("id").startAt(s).endAt(s+"\uf8ff");

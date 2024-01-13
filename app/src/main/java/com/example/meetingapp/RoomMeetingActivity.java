@@ -67,6 +67,7 @@ public class RoomMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RoomMeetingActivity.this,FileActivity.class);
+                intent.putExtra("Meeting_ID",meetingID);
                 startActivity(intent);
             }
         });
