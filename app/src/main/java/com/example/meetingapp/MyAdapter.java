@@ -1,6 +1,8 @@
 package com.example.meetingapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +29,9 @@ import java.util.UUID;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     Context context;
     ArrayList<Meetings> list;
-    DatabaseReference usersRef, meetRef;
+    DatabaseReference usersRef, meetRef,meetRefC;
+
+    AlertDialog.Builder builder;
 
 
     public MyAdapter(Context context, ArrayList<Meetings> list) {
@@ -50,6 +54,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         holder.topic.setText(meetings.getTopic());
         holder.date.setText(meetings.getDate());
         holder.time.setText(meetings.getTime());
+        holder.createUser.setText(meetings.getName());
         Button joinMeetBtn = holder.itemView.findViewById(R.id.join_meeting_btn);
         joinMeetBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,6 +85,46 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             }
         });
 
+        TextView deleteBtn = holder.itemView.findViewById(R.id.delete_btn);
+        String meetingID = meetings.getId().toString();
+        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
+        String meetingUser = meetings.getName().toString();
+        //deleteBtn.setEnabled(false);
+        deleteBtn.setVisibility(View.GONE);
+        builder = new AlertDialog.Builder(context);
+
+        if(userName.equals(meetingUser)){
+            deleteBtn.setVisibility(View.VISIBLE);
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    builder.setTitle("").setMessage("Bạn có chắc muốn xóa cuộc họp này?").setCancelable(true)
+                            .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    meetRef = FirebaseDatabase.getInstance().getReference().child("Meetings").child(meetingID);
+                                    Task<Void> mTask = meetRef.removeValue();
+                                    mTask.addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(context, "Đã xóa cuộc họp", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+                                }
+                            }).setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.cancel();
+                                }
+                            }).show();
+
+                }
+            });
+        }
+
+
     }
 
     void startMeeting(String meetingID, String name, String meetingTopic,String meetingPass){
@@ -102,7 +147,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView id, topic, date, time,passConfirm;
+        TextView id, topic, date, time,passConfirm,createUser;
         Button createBtn;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -111,6 +156,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
             date = itemView.findViewById(R.id.meeting_date);
             time = itemView.findViewById(R.id.meeting_time);
             passConfirm = itemView.findViewById(R.id.edt_pass);
+            createUser = itemView.findViewById(R.id.meeting_name);
             //createBtn = itemView.findViewById(R.id.create_meeting_btn);
 
         }
@@ -120,5 +166,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         String name = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
         return name;
     }
+
+
 
 }

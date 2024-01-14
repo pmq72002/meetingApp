@@ -29,8 +29,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Random;
@@ -114,7 +116,7 @@ public class newMeet_Activity extends AppCompatActivity {
 
     }
     private String makeDateString(int dayOfMonth, int month, int year){
-        return "Ngày "+dayOfMonth + " "+"Tháng "+(month+1)+" , "+year;
+        return dayOfMonth + "/"+(month+1)+"/"+year;
     }
 
     public void openDatePicker(View view) {
@@ -146,18 +148,49 @@ public class newMeet_Activity extends AppCompatActivity {
     final String getMeetTime = btn_time.getText().toString();
 
     final String getMeetName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName().toString();
+        Date dateAndTime = Calendar.getInstance().getTime();
+        SimpleDateFormat dateFormatY = new SimpleDateFormat("yyyy", Locale.getDefault());
+        SimpleDateFormat dateFormatM = new SimpleDateFormat("MM", Locale.getDefault());
+        SimpleDateFormat dateFormatD = new SimpleDateFormat("dd", Locale.getDefault());
+        String dateNowY = dateFormatY.format(dateAndTime).toString();
+        String dateNowM = dateFormatM.format(dateAndTime).toString();
+        String dateNowD = dateFormatD.format(dateAndTime).toString();
+
+        String [] getMeetDatePath = getMeetDate.split("/");
+        String getYear = getMeetDatePath[2].toString();
+        String getMonth = getMeetDatePath[1].toString();
+        String getDay = getMeetDatePath[0].toString();
+
+        SimpleDateFormat timeFormatH = new SimpleDateFormat("hh", Locale.getDefault());
+        SimpleDateFormat timeFormatM = new SimpleDateFormat("mm", Locale.getDefault());
+        String timeH = timeFormatH.format(dateAndTime).toString();
+        String timeM = timeFormatM.format(dateAndTime).toString();
+        String [] getTimePath = getMeetTime.split(":");
+        String getHour = getTimePath[0].toString();
+        String getMinute = getTimePath[1].toString();
 
         if(getMeetTopic.equals("")){
             Toast.makeText(this, "Chủ đề không được để trống", Toast.LENGTH_SHORT).show();
         } else if (getMeetPass.equals("")) {
             Toast.makeText(this, "Mật khẩu không được để trống", Toast.LENGTH_SHORT).show();
-        }else{
+        } else if (getYear.compareTo(dateNowY) < 0) {
+            Toast.makeText(this,"Ngày không phù hợp" , Toast.LENGTH_SHORT).show();
+        } else if (getYear.compareTo(dateNowY) == 0&&getMonth.compareTo(dateNowM)<0) {
+            Toast.makeText(this,"Ngày không phù hợp" , Toast.LENGTH_SHORT).show();
+        }else if (getYear.compareTo(dateNowY) == 0&&getMonth.compareTo(dateNowM)==0&&getDay.compareTo(dateNowD)<0) {
+            Toast.makeText(this,"Ngày không phù hợp" , Toast.LENGTH_SHORT).show();
+        }else if (getHour.compareTo(timeH)<0) {
+                Toast.makeText(this, "Giờ không phù hợp", Toast.LENGTH_SHORT).show();
+        }else if (getHour.compareTo(timeH)==0&&getMinute.compareTo(timeM)<0) {
+                Toast.makeText(this,"Giờ không phù hợp" , Toast.LENGTH_SHORT).show();
+
+        } else{
             progressDialog.setTitle("Đang tạo cuộc họp");
             progressDialog.setMessage("Vui lòng đợi trong giây lát...");
             progressDialog.show();
 
             Random random = new Random();
-            int randomNum = random.nextInt(9000)+1000;
+            int randomNum = random.nextInt(90000)+10000;
 
             String id = String.valueOf(randomNum);
 
