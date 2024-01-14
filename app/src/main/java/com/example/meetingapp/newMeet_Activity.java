@@ -179,10 +179,6 @@ public class newMeet_Activity extends AppCompatActivity {
             Toast.makeText(this,"Ngày không phù hợp" , Toast.LENGTH_SHORT).show();
         }else if (getYear.compareTo(dateNowY) == 0&&getMonth.compareTo(dateNowM)==0&&getDay.compareTo(dateNowD)<0) {
             Toast.makeText(this,"Ngày không phù hợp" , Toast.LENGTH_SHORT).show();
-        }else if (getHour.compareTo(timeH)<0) {
-                Toast.makeText(this, "Giờ không phù hợp", Toast.LENGTH_SHORT).show();
-        }else if (getHour.compareTo(timeH)==0&&getMinute.compareTo(timeM)<0) {
-                Toast.makeText(this,"Giờ không phù hợp" , Toast.LENGTH_SHORT).show();
 
         } else{
             progressDialog.setTitle("Đang tạo cuộc họp");
