@@ -9,9 +9,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/collaboration"
+        android:icon="@drawable/duck"
         android:label="Duck Meet"
-        android:roundIcon="@drawable/collaboration"
+        android:roundIcon="@drawable/duck"
         android:supportsRtl="true"
         android:theme="@style/Theme.MeetingApp"
         tools:targetApi="31" >
@@ -20,9 +20,6 @@
             android:exported="false" />
         <activity
             android:name=".MyFilesActivity"
-            android:exported="false" />
-        <activity
-            android:name=".listFileRoomActivity"
             android:exported="false" />
         <activity
             android:name=".FileRoomActivity"
