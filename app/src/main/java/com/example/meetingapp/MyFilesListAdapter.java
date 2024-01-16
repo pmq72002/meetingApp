@@ -45,8 +45,6 @@ public class MyFilesListAdapter extends RecyclerView.Adapter<MyFilesListAdapter.
         holder.date.setText(FilesList.getDate());
 
 
-
-
     }
 
     @Override
@@ -61,8 +59,6 @@ public class MyFilesListAdapter extends RecyclerView.Adapter<MyFilesListAdapter.
             files = itemView.findViewById(R.id.sender_file_list);
             date = itemView.findViewById(R.id.file_date_list);
             time = itemView.findViewById(R.id.file_time_list);
-
-
 
         }
     }

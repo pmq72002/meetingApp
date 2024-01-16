@@ -59,7 +59,7 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference = FirebaseDatabase.getInstance().getReference("Users setting");
         userID = user.getUid();
 
        // userRef = FirebaseDatabase.getInstance().getReference("Users");
@@ -73,7 +73,7 @@ public class SettingActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userRef = FirebaseDatabase.getInstance().getReference().child("Users");
+                userRef = FirebaseDatabase.getInstance().getReference("Users setting");
 
 
                 saveInfoOnly();
@@ -119,19 +119,22 @@ public class SettingActivity extends AppCompatActivity {
             Toast.makeText(this, "Vị trí không được để trống", Toast.LENGTH_SHORT).show();
         }else {
 
-            HashMap<String,String> profileMap = new HashMap<>();
+            HashMap profileMap = new HashMap<>();
             profileMap.put("uid",FirebaseAuth.getInstance().getCurrentUser().getUid());
+            profileMap.put("name",FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
             profileMap.put("mnv",getUserMnv);
             profileMap.put("position",getUserPosition);
             profileMap.put("profile",FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl().toString());
-            userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            userRef.child(FirebaseAuth.getInstance().getCurrentUser().getUid()).updateChildren(profileMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
                         Toast.makeText(SettingActivity.this, "Thông tin tài khoản đã được cập nhật", Toast.LENGTH_SHORT).show();
+
                     }
                 }
             });
         }
     }
+
 }

@@ -12,6 +12,12 @@ import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
+import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     private DatabaseReference reference;
     private FirebaseUser user;
     private String  userID;
-
+    GoogleApiClient mGoogleApiClient;
     ImageView img_profile;
     TextView txt_profile;
     Button btn_newMeet, btn_myMeet, btn_contentsMeet, btn_file;
@@ -110,9 +116,14 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         logout.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
-                FirebaseAuth.getInstance().signOut();
-                Intent i = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(i);
+                AuthUI.getInstance().signOut(MainActivity.this).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                        startActivity(i);
+                        finish();
+                    }
+                });
 
                 return true;
             }

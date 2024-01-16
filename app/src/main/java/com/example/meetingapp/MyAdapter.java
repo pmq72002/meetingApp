@@ -70,6 +70,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                             String pass = snapshot.child("password").getValue().toString();
                             if(holder.passConfirm.getText().toString().equals(pass)){
                                 startMeeting(meetingID,getName(),meetings.getTopic(),pass);
+                                holder.passConfirm.setText("");
                             }else {
                                 Toast.makeText(context, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
                             }

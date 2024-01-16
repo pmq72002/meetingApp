@@ -98,8 +98,8 @@ public class RoomMeetingActivity extends AppCompatActivity {
 
 
         ZegoUIKitPrebuiltVideoConferenceConfig config = new ZegoUIKitPrebuiltVideoConferenceConfig();
-        // config.turnOnCameraWhenJoining = false;
-        // config.turnOnMicrophoneWhenJoining = false;
+         config.turnOnCameraWhenJoining = false;
+         config.turnOnMicrophoneWhenJoining = false;
         ZegoUIKitPrebuiltVideoConferenceFragment fragment = ZegoUIKitPrebuiltVideoConferenceFragment.newInstance(appID, appSign,userID, name, meetingID, config);
 
         getSupportFragmentManager().beginTransaction()
