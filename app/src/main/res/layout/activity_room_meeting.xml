@@ -91,6 +91,15 @@
             android:id="@+id/mic_record"
             android:background="@color/white"
             android:layout_alignBottom="@+id/meeting_id_textview"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/mic_stopRecord"></ImageView>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/stop_record_false"
+            android:id="@+id/mic_stopRecord"
+            android:background="@color/white"
+            android:layout_alignBottom="@+id/meeting_id_textview"
             android:layout_marginRight="15dp"
             android:layout_alignParentEnd="true"></ImageView>
 

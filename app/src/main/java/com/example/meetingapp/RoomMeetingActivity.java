@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.content.Intent;
+import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
 import android.speech.RecognitionListener;
@@ -23,22 +24,39 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.zegocloud.uikit.prebuilt.videoconference.ZegoUIKitPrebuiltVideoConferenceConfig;
 import com.zegocloud.uikit.prebuilt.videoconference.ZegoUIKitPrebuiltVideoConferenceFragment;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class RoomMeetingActivity extends AppCompatActivity {
     TextView meetingIDText, meetingNameTextview;
     TextView share_btn, file_btn;
+    SpeechRecognizer speechRecognizer;
 
     TextView meetingTopicText;
-    ImageView record_btn;
+    ImageView record_btn, stopRecord_btn;
     DatabaseReference contentRef;
-    String meetingID, meetingTopic, name, userID, meetingPass;
-
+    String meetingID, meetingTopic, name, userID, meetingPass,meetingName;
+    private boolean isRecording = false;
+    private boolean isClicked = false;
+    private ReentrantLock buttonLock = new ReentrantLock();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_room_meeting);
+
+        MediaRecorder mediaRecorder = new MediaRecorder();
+        mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try {
+            mediaRecorder.prepare();
+            mediaRecorder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         contentRef = FirebaseDatabase.getInstance().getReference().child("Contents");
 
@@ -48,17 +66,20 @@ public class RoomMeetingActivity extends AppCompatActivity {
         meetingTopicText = findViewById(R.id.meeting_topic_textview);
         meetingNameTextview = findViewById(R.id.meeting_name_textview);
         record_btn = findViewById(R.id.mic_record);
+        stopRecord_btn = findViewById(R.id.mic_stopRecord);
+        stopRecord_btn.setEnabled(false);
 
         meetingID = getIntent().getStringExtra("meeting_ID");
         userID = getIntent().getStringExtra(("user_ID"));
         meetingTopic = getIntent().getStringExtra("meeting_Topic");
         name = getIntent().getStringExtra("name");
+        meetingName = getIntent().getStringExtra("meeting_Name");
         meetingPass = getIntent().getStringExtra("pass");
 
 
         meetingIDText.setText("ID: " + meetingID);
         meetingTopicText.setText("Chủ đề: " + meetingTopic);
-        meetingNameTextview.setText("Nguời tạo: " + name);
+        meetingNameTextview.setText("Nguời tạo: " + meetingName);
         addFragment();
 
         file_btn.setOnClickListener(new View.OnClickListener() {
@@ -77,16 +98,29 @@ public class RoomMeetingActivity extends AppCompatActivity {
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("text/plain");
                 intent.putExtra((Intent.EXTRA_TEXT), "ID: " + meetingID+"\n Mật khẩu: "+meetingPass);
-                startActivity(Intent.createChooser(intent, "Share via"));
+                startActivity(Intent.createChooser(intent, "Chia sẻ qua "));
             }
         });
 
         record_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 checkAudioPermission();
                 record_btn.setImageResource(R.drawable.mic_stop);
+                stopRecord_btn.setImageResource(R.drawable.stop_record_true);
                 startSpeechToText();
+                stopRecord_btn.setEnabled(true);
+                isRecording = true;
+            }
+        });
+        stopRecord_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                record_btn.setImageResource(R.drawable.mic_start);
+                stopRecord_btn.setImageResource(R.drawable.stop_record_false);
+                stopSpeechtoText();
+
             }
         });
     }
@@ -107,7 +141,7 @@ public class RoomMeetingActivity extends AppCompatActivity {
                 .commitNow();
     }
     private void startSpeechToText() {
-        SpeechRecognizer speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
+         speechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
         Intent speechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
         speechRecognizerIntent.putExtra(
                 RecognizerIntent.EXTRA_LANGUAGE_MODEL,
@@ -151,17 +185,11 @@ public class RoomMeetingActivity extends AppCompatActivity {
                     String meetContent = getMeetContent.concat(result.get(0));
                     Contents contents = new Contents(meetingID,getUserId,meetContent);
 
-//                    HashMap<String, String> contentMap = new HashMap<>();
-//
-//                    contentMap.put("meetingId",meetingID);
-//                    contentMap.put("id", getUserId);
-//                    contentMap.put("contents", meetContent);
 
                     contentRef.child(meetingID).child(id).setValue(contents).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
-
                                 Toast.makeText(RoomMeetingActivity.this, "Đã ghi âm cuộc họp", Toast.LENGTH_SHORT).show();
                             }
                         }
@@ -177,6 +205,19 @@ public class RoomMeetingActivity extends AppCompatActivity {
         });
         speechRecognizer.startListening(speechRecognizerIntent);
     }
+    private void stopSpeechtoText(){
+        if(isRecording){
+            speechRecognizer.stopListening();
+            isRecording = false;
+        }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // Giải phóng tài nguyên khi ứng dụng kết thúc
+        speechRecognizer.destroy();
+    }
     private void checkAudioPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.RECORD_AUDIO}, RecordAudioRequestCode);
@@ -190,6 +231,7 @@ public class RoomMeetingActivity extends AppCompatActivity {
             Toast.makeText(this, "Đang ghi âm", Toast.LENGTH_SHORT).show();
         }
     }
-    public static final int RecordAudioRequestCode = 1;
+    public static final int RecordAudioRequestCode = 2;
+
 
 }

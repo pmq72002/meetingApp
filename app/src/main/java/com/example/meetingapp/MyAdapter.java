@@ -68,8 +68,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
                         if(task.isSuccessful()){
                             DataSnapshot snapshot = task.getResult();
                             String pass = snapshot.child("password").getValue().toString();
+                            String meetingName = snapshot.child("name").getValue().toString();
                             if(holder.passConfirm.getText().toString().equals(pass)){
-                                startMeeting(meetingID,getName(),meetings.getTopic(),pass);
+                                startMeeting(meetingID,meetingName,getName(),meetings.getTopic(),pass);
                                 holder.passConfirm.setText("");
                             }else {
                                 Toast.makeText(context, "Sai mật khẩu", Toast.LENGTH_SHORT).show();
@@ -129,12 +130,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     }
 
-    void startMeeting(String meetingID, String name, String meetingTopic,String meetingPass){
+    void startMeeting(String meetingID, String meetingName,String name, String meetingTopic,String meetingPass){
 
         String userID = UUID.randomUUID().toString();
 
         Intent intent = new Intent(context, RoomMeetingActivity.class);
         intent.putExtra("meeting_ID", meetingID);
+        intent.putExtra("meeting_Name",meetingName);
         intent.putExtra("name",name);
         intent.putExtra("meeting_Topic",meetingTopic);
         intent.putExtra("user_ID",userID);
