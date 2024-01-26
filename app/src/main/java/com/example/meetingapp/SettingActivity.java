@@ -40,7 +40,7 @@ import java.util.HashMap;
 public class SettingActivity extends AppCompatActivity {
 
     private FirebaseUser user;
-    private DatabaseReference reference;
+    private DatabaseReference reference, reference1;
 
     private Button saveBtn;
     private TextView userNameET;
@@ -59,7 +59,8 @@ public class SettingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
-        reference = FirebaseDatabase.getInstance().getReference("Users setting");
+        reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference1 = FirebaseDatabase.getInstance().getReference("Users setting");
         userID = user.getUid();
 
        // userRef = FirebaseDatabase.getInstance().getReference("Users");
@@ -86,18 +87,40 @@ public class SettingActivity extends AppCompatActivity {
                 Users userProfile = snapshot.getValue(Users.class);
                         if(userProfile!=null){
                             String name = userProfile.name;
-                            String mnv = userProfile.mnv;
-                            String position = userProfile.position;
+
                             String profile = userProfile.profile;
 
                             userNameET.setText(name);
-                            userMnvET.setText(mnv);
-                            userPositionET.setText(position);
+
                             Picasso.get().load(profile).placeholder(R.drawable.profile).into(profileImg);
 
 
                         }
             }
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        reference1.child(userID).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users userProfile = snapshot.getValue(Users.class);
+                if(userProfile!=null){
+                    String mnv = userProfile.mnv;
+                    String position = userProfile.position;
+
+                    userMnvET.setText(mnv);
+                    userPositionET.setText(position);
+
+
+                }
+            }
+
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
