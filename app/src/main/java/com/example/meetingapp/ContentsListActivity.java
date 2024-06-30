@@ -33,7 +33,7 @@ public class ContentsListActivity extends AppCompatActivity {
     EditText edt_search_list;
     ImageView mic_stt_list;
     RecyclerView rv_myContentList;
-    ArrayList<Contents> mylist;
+    ArrayList<Contents> mylist, mylist1;
     DatabaseReference contRef;
     MyContentListAdapter contentListAdapter;
 
@@ -77,7 +77,7 @@ public class ContentsListActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if(!s.toString().isEmpty()){
-                    search(s.toString().substring(0,1).toUpperCase());
+                    search(s.toString().substring(0,1).toUpperCase()+s.toString().substring(1).toLowerCase());
                 }else {
                     search("");
                 }
@@ -127,11 +127,12 @@ public class ContentsListActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if(snapshot.hasChildren()){
                     mylist.clear();
+                    mylist1 = new ArrayList<>();
                     for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                         final Contents contents = dataSnapshot.getValue(Contents.class);
-                        mylist.add(contents);
+                        mylist1.add(contents);
                     }
-                    contentListAdapter = new MyContentListAdapter(getApplicationContext(),mylist);
+                    contentListAdapter = new MyContentListAdapter(getApplicationContext(),mylist1);
                     rv_myContentList.setAdapter(contentListAdapter);
                     contentListAdapter.notifyDataSetChanged();
                 }else{
