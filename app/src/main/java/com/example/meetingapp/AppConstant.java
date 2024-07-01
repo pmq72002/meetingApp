@@ -1,6 +1,6 @@
 package com.example.meetingapp;
 
 public class AppConstant {
-    public static Long appId = Long.valueOf("542256285");
-    public static String appSigns = "c3dc70b8342b061a1d0b8e30bb94b1c8ba95f3b4ae9f3414c025c2f25557b3f0";
+    public static Long appId = Long.valueOf("1328729468");
+    public static String appSigns = "ed16aae951d382e47ccc64f56a23af0b664d4465ac885a8b1e85ef39fbca139e";
 }

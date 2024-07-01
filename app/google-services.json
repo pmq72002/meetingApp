@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "992322229527",
-    "firebase_url": "https://meeting-app-for-tester-qtrung-default-rtdb.firebaseio.com",
-    "project_id": "meeting-app-for-tester-qtrung",
-    "storage_bucket": "meeting-app-for-tester-qtrung.appspot.com"
+    "project_number": "1048943354970",
+    "firebase_url": "https://android-3b9b1-default-rtdb.firebaseio.com",
+    "project_id": "android-3b9b1",
+    "storage_bucket": "android-3b9b1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:992322229527:android:9e380222dc40eb808a1352",
+        "mobilesdk_app_id": "1:1048943354970:android:54d25e00a37d9b5f23a463",
         "android_client_info": {
           "package_name": "com.example.meetingapp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "992322229527-j32v0184l46g12ub0rnn30qae3bhdhh8.apps.googleusercontent.com",
+          "client_id": "1048943354970-46krnr96k7gmpsac85dqbffihto3dein.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.meetingapp",
-            "certificate_hash": "67f599e53b1f4e9b0aac58c86ac75fccd7f41bca"
+            "certificate_hash": "b4e1a5f6bd909584eef22e18e11c05ce60854a80"
           }
         },
         {
-          "client_id": "992322229527-72oc368c83n6tf6qe324k2njti3gmi0k.apps.googleusercontent.com",
+          "client_id": "1048943354970-5mhmpki19iau5jk9fmvcui719hv25afg.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyC7DsBZOtE5Xqz5MkqvjtF8eF1HqVrxviA"
+          "current_key": "AIzaSyB2JrJpX9_ZNVtSLdkC8bHImppGkEcxa9k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "992322229527-72oc368c83n6tf6qe324k2njti3gmi0k.apps.googleusercontent.com",
+              "client_id": "1048943354970-5mhmpki19iau5jk9fmvcui719hv25afg.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

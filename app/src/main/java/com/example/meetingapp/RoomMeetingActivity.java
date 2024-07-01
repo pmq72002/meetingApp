@@ -106,10 +106,10 @@ public class RoomMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                checkAudioPermission();
+                //checkAudioPermission();
                 record_btn.setImageResource(R.drawable.mic_stop);
                 stopRecord_btn.setImageResource(R.drawable.stop_record_true);
-                startSpeechToText();
+                //startSpeechToText();
                 stopRecord_btn.setEnabled(true);
                 isRecording = true;
             }
@@ -119,7 +119,7 @@ public class RoomMeetingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 record_btn.setImageResource(R.drawable.mic_start);
                 stopRecord_btn.setImageResource(R.drawable.stop_record_false);
-                stopSpeechtoText();
+                //stopSpeechtoText();
 
             }
         });
